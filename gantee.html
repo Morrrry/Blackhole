@@ -1,36 +1,73 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>OpenAI 模型发布时间甘特图</title>
-  <script type="module" src="https://cdn.jsdelivr.net/npm/frappe-gantt@0.6.1/dist/frappe-gantt.min.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/frappe-gantt@0.6.1/dist/frappe-gantt.css" />
+  <title>OpenAI O系列模型甘特图</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/frappe-gantt@0.5.0/dist/frappe-gantt.css" />
   <style>
     body {
       font-family: 'Arial', sans-serif;
-      margin: 20px;
-      background: #f9f9f9;
+      background: #f0f2f5;
+      padding: 100px;
     }
     h2 {
       text-align: center;
+      margin-bottom: 30px;
     }
-    #gantt {
+    #gantt-target {
       width: 100%;
-      height: 600px;
-      overflow-x: auto;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      background: white;
+      width: 960px;        
+      height: 540px;
+      border-radius: 16px;
+      margin: 0 auto;
+      border: 10px solid #ccc;
+      background: #fff;
     }
+    .invisible-bar .bar {
+      opacity: 0;
+    }
+    .gantt .bar-label {
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .gantt .upper-text {
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .gantt .lower-text {
+    font-size: 20px;
+  }
+
   </style>
 </head>
 <body>
-  <h2>OpenAI O系列模型发布时间甘特图</h2>
-  <div id="gantt"></div>
 
+  <h2>OpenAI O系列模型发布周期甘特图</h2>
+  <div id="gantt-target"></div>
+
+  <!-- 放在 body 结尾以确保加载顺序正确 -->
+  <script src="https://cdn.jsdelivr.net/npm/frappe-gantt@0.5.0/dist/frappe-gantt.min.js"></script>
   <script>
     const tasks = [
+    {
+        id: 'start-anchor',
+        name: '',
+        start: '2024-09-01',
+        end: '2024-09-01',
+        progress: 0,
+        custom_class: 'invisible-bar'
+      },
+      {
+        id: 'end-anchor',
+        name: '',
+        start: '2025-06-01',
+        end: '2025-06-01',
+        progress: 0,
+        custom_class: 'invisible-bar'
+      },
       {
         id: "o1-preview",
         name: "o1-preview",
@@ -68,11 +105,13 @@
       }
     ];
 
-    const gantt = new Gantt("#gantt", tasks, {
+    new Gantt("#gantt-target", tasks, {
       view_mode: 'Month',
       date_format: 'YYYY-MM-DD',
-      custom_popup_html: null,
+      column_width: 160, 
+      custom_popup_html: null
     });
   </script>
+
 </body>
 </html>
